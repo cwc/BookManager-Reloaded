@@ -1,0 +1,7 @@
+copy-cost: 0
+copy-mat: true
+first-spawn: false
+first-spawn-books:
+- One
+- Two
+- Three

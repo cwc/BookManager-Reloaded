@@ -24,6 +24,8 @@ public class BMPlugin extends JavaPlugin {
 	
 	@Override
 	public void onEnable() {
+        getConfig().options().copyDefaults(true);
+        saveConfig();
         plugin = this;
         final PluginManager pm = getServer().getPluginManager();
 		econ = new VaultHook();

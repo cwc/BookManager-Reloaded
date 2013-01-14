@@ -92,7 +92,7 @@ public class BookSave {
 		sender.sendMessage(builder.toString());
 	}
 	
-	public static void loadBook (VaultHook econ, Player player, File dir, String name) {
+	public static void loadBook (VaultHook econ, Player player, File dir, String name, boolean firstJoin) {
 		
 		File folder = new File(dir, name);
 		if (!folder.exists()) {
@@ -102,17 +102,19 @@ public class BookSave {
 		
 		YamlConfiguration yc = YamlConfiguration.loadConfiguration(
 				new File(folder, "conf.yml"));
-		if (!yc.getBoolean("available", false) &&
-				!player.hasPermission("bookmanager.loadtxt.all")) {
-			player.sendMessage("You cannot access that book, sorry :(");
-			return;
-		}
-		if (!player.hasPermission("bookmanager.loadtxt.free")) {
-			if (yc.getBoolean("mat"))
-				if (BookMakeUse.useMaterials(player, 1)) return;
-			double d = yc.getDouble("cost");
-			if (d > 0) econ.spendMoney(player, d);
-		}
+		if(!firstJoin) {
+            if (!yc.getBoolean("available", false) &&
+                    !player.hasPermission("bookmanager.loadtxt.all")) {
+                player.sendMessage("You cannot access that book, sorry :(");
+                return;
+            }
+            if (!player.hasPermission("bookmanager.loadtxt.free")) {
+                if (yc.getBoolean("mat"))
+                    if (BookMakeUse.useMaterials(player, 1)) return;
+                double d = yc.getDouble("cost");
+                if (d > 0) econ.spendMoney(player, d);
+            }
+        }
 
         ItemStack is = new ItemStack(Material.WRITTEN_BOOK, 1);
         BookMeta book = (BookMeta) is.getItemMeta();

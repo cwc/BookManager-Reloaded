@@ -63,7 +63,7 @@ public class BMPlugin extends JavaPlugin {
 		
 		if (name.equals("loadbook")) {
 			if (args.length < 1) return false;
-			BookSave.loadBook(econ, player, getDataFolder(), args[0]);
+			BookSave.loadBook(econ, player, getDataFolder(), args[0], false);
 			return true;
 		}
 		

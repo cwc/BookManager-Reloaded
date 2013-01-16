@@ -126,7 +126,14 @@ public class BMPlugin extends JavaPlugin {
                 sender.sendMessage("The book has been successfully renamed");
 				
 			} else if (name.equals("rnauth")) {
-				book.setAuthor(args[0]);
+                StringBuilder builder = new StringBuilder();
+                int i = 0;
+                for(String arg : args) {
+                    builder.append(arg);
+                    if(i < args.length) builder.append(" ");
+                    i++;
+                }
+				book.setAuthor(builder.toString().trim());
                 is.setItemMeta(book);
                 sender.sendMessage("The book's author has been successfully changed");
 				

@@ -1,6 +1,8 @@
 package com.LRFLEW.bukkit.book;
 
 import com.LRFLEW.bukkit.book.listener.PlayerJoin;
+import com.LRFLEW.bukkit.book.util.BookFunctions;
+import com.LRFLEW.bukkit.book.util.BookHandler;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -16,17 +18,19 @@ import java.util.logging.Logger;
 public class BMPlugin extends JavaPlugin {
 
     private static BMPlugin plugin;
-    private final Logger log = Logger.getLogger("Minecraft");
+    private final Logger log = getLogger();
 
     public VaultHook econ;
     public boolean firstSpawnEnabled;
     public List<String> firstSpawnBooks;
-	
-	@Override
+	public BookHandler bookHandler = new BookHandler();
+
 	public void onEnable() {
+        plugin = this;
         getConfig().options().copyDefaults(true);
         saveConfig();
-        plugin = this;
+        bookHandler.reloadBookLog();
+        bookHandler.saveBookLog();
         final PluginManager pm = getServer().getPluginManager();
 		econ = new VaultHook();
         firstSpawnEnabled = getConfig().getBoolean("first-spawn", false);
@@ -35,8 +39,7 @@ public class BMPlugin extends JavaPlugin {
             pm.registerEvents(new PlayerJoin(plugin), plugin);
         }
 	}
-	
-	@Override
+
 	public void onDisable() {
 		econ = null;
 	}
@@ -48,10 +51,10 @@ public class BMPlugin extends JavaPlugin {
 		
 		if (name.equals("deletebook")) {
 			if (args.length < 1) return false;
-			BookSave.deleteBook(sender, getDataFolder(), args[0]);
+			BookSave.deleteBook(sender, BookFunctions.implode(args, " "));
 			return true;
 		} else if (name.equals("listbooks")) {
-			BookSave.listBooks(sender, getDataFolder());
+			sender.sendMessage(bookHandler.getBooks());
 			return true;
 		}
 		
@@ -63,7 +66,7 @@ public class BMPlugin extends JavaPlugin {
 		
 		if (name.equals("loadbook")) {
 			if (args.length < 1) return false;
-			BookSave.loadBook(econ, player, getDataFolder(), args[0], false);
+			BookSave.loadBook(econ, player, BookFunctions.implode(args, " "), false);
 			return true;
 		}
 		
@@ -138,12 +141,15 @@ public class BMPlugin extends JavaPlugin {
                 sender.sendMessage("The book's author has been successfully changed");
 				
 			} else if (name.equals("savebook")) {
-				BookSave.saveBook(book, getDataFolder(), sender, args[0]);
+				BookSave.saveBook(book, sender, BookFunctions.implode(args, " "));
 				return true;
 			}
 		}
 		
 		return true;
 	}
-	
+
+    public static BMPlugin getPlugin(){
+        return plugin;
+    }
 }

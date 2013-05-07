@@ -17,7 +17,7 @@ public class PlayerJoin implements Listener{
     @EventHandler(priority = EventPriority.LOWEST)
     public void handleLogin(PlayerJoinEvent event){
         if(!event.getPlayer().hasPlayedBefore()){
-            for(String book : plugin.firstSpawnBooks) BookSave.loadBook(plugin.econ, event.getPlayer(), plugin.getDataFolder(), book, true);
+            for(String book : plugin.firstSpawnBooks) BookSave.loadBook(plugin.econ, event.getPlayer(), book, true);
         }
     }
 }

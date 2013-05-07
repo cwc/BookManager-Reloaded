@@ -1,7 +1,7 @@
 name: ${name}
 version: ${version}
 main: com.LRFLEW.bukkit.book.BMPlugin
-author: LRFLEW, ProjectInfinity
+author: [LRFLEW, ProjectInfinity]
 description: An advanced book management plugin
 softdepend: [Vault]
 commands:

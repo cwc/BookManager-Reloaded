@@ -41,26 +41,12 @@ public class BookSave {
             /*** END ***/
             // TODO: Implement Material (true/false). Implement economy cost.
             if(!player.hasPermission("bookmanager.loadtxt.free")){
-                if(BookMakeUse.useMaterials(player, 1)) return;
+                if(!BookMakeUse.useMaterials(player, 1)) return;
+                if(BMPlugin.getPlugin().copyCost > 0){
+                    if(!econ.spendMoney(player, BMPlugin.getPlugin().copyCost)) return;
+                }
             }
         }
-		/*
-		YamlConfiguration yc = YamlConfiguration.loadConfiguration(
-				new File(folder, "conf.yml"));
-		if(!firstJoin) {
-            if (!yc.getBoolean("available", false) &&
-                    !player.hasPermission("bookmanager.loadtxt.all")) {
-                player.sendMessage("You cannot access that book, sorry :(");
-                return;
-            }
-            if (!player.hasPermission("bookmanager.loadtxt.free")) {
-                if (yc.getBoolean("mat"))
-                    if (BookMakeUse.useMaterials(player, 1)) return;
-                double d = yc.getDouble("cost");
-                if (d > 0) econ.spendMoney(player, d);
-            }
-        }
-        */
         player.getInventory().addItem(is);
 	}
 }

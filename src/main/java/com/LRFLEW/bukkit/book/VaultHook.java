@@ -27,10 +27,10 @@ public class VaultHook {
 		if (econ == null) return false;
 		if (!econ.has(player.getName(), amount)) {
 			player.sendMessage("You need " + econ.format(amount) + " to do that");
-			return true;
+			return false;
 		}
 		econ.withdrawPlayer(player.getName(), amount);
-		return false;
+		return true;
 	}
 	
 	public String formatList(double amount, boolean mat) {

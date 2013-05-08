@@ -24,6 +24,7 @@ public class BMPlugin extends JavaPlugin {
     public boolean firstSpawnEnabled;
     public List<String> firstSpawnBooks;
 	public BookHandler bookHandler = new BookHandler();
+    public double copyCost;
 
 	public void onEnable() {
         plugin = this;
@@ -34,6 +35,7 @@ public class BMPlugin extends JavaPlugin {
         final PluginManager pm = getServer().getPluginManager();
 		econ = new VaultHook();
         firstSpawnEnabled = getConfig().getBoolean("first-spawn", false);
+        copyCost = getConfig().getDouble("copy-cost");
         if(firstSpawnEnabled){
             firstSpawnBooks = getConfig().getStringList("first-spawn-books");
             pm.registerEvents(new PlayerJoin(plugin), plugin);

@@ -58,7 +58,11 @@ public class BMPlugin extends JavaPlugin {
 		} else if (name.equals("listbooks")) {
 			sender.sendMessage(bookHandler.getBooks());
 			return true;
-		}
+		} else if (name.equals("reloadbooks")) {
+            BookSave.reloadBooks();
+            sender.sendMessage("All books have been reloaded.");
+            return true;
+        }
 		
 		if (!(sender instanceof Player)) {
 			sender.sendMessage("You must use command \"" +name + "\" as a player");

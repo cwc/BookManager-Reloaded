@@ -49,4 +49,8 @@ public class BookSave {
         }
         player.getInventory().addItem(is);
 	}
+
+    public static void reloadBooks(){
+        BMPlugin.getPlugin().bookHandler.reloadBookLog();
+    }
 }

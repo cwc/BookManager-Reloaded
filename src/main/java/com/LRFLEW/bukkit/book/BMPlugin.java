@@ -102,7 +102,7 @@ public class BMPlugin extends JavaPlugin {
 				if (d > 0) econ.spendMoney(player, d);
 			}
 
-			for (int i=0; i < times; i++) player.getInventory().addItem(is.clone());
+			is.setAmount(is.getAmount() + times);
 			sender.sendMessage("Written Book has been copied " + times + " times");
 			return true;
 		}

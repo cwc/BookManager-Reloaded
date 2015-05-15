@@ -14,6 +14,7 @@ public class BookMakeUse {
 		new ItemStack(Material.FEATHER, 1)
 	};
 	
+	// Returns true if the player has the required materials to make an amount of books
 	public static boolean useMaterials(Player player, int amount) {
 		if (!player.getGameMode().equals(GameMode.CREATIVE)) {
 			Inventory inv = player.getInventory();
@@ -22,10 +23,10 @@ public class BookMakeUse {
 			} else {
 				player.sendMessage("You need " + amount + " book(s), " + amount + " ink sack(s), " +
 						"and " + amount + " feather(s)");
-				return true;
+				return false;
 			}
 		}
-		return false;
+		return true;
 	}
 	
 	public static boolean hasItems(Inventory inv, int times, ItemStack... items) {

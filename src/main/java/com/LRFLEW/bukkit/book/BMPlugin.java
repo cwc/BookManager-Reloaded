@@ -97,12 +97,12 @@ public class BMPlugin extends JavaPlugin {
 			
 			if (!player.hasPermission("bookmanager.copybook.free")) {
 				if (getConfig().getBoolean("copy-mat"))
-					if (BookMakeUse.useMaterials(player, times)) return true;
+					if (!BookMakeUse.useMaterials(player, times)) return true;
 				double d = getConfig().getDouble("copy-cost");
 				if (d > 0) econ.spendMoney(player, d);
 			}
 
-			for (int i=0; i < times; i++) player.getInventory().addItem(is.clone());
+			is.setAmount(is.getAmount() + times);
 			sender.sendMessage("Written Book has been copied " + times + " times");
 			return true;
 		}
